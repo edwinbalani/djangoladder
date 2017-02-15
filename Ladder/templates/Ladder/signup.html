@@ -1,0 +1,23 @@
+{% extends "Ladder/template.html" %}
+
+{% block col1 %}
+<h3>Sign up to the Ladder</h3>
+
+<p>{{ text }}</p>
+
+<form action="/accountcreate" method="POST">
+
+{% csrf_token %}
+    <p>Please Enter Your Name:</p>
+    <input type="text" name="player_name"/>
+    <p>And your chosen password:</p>
+    <input type="password" name="password1" />
+    <p>And your password again:</p>
+    <input type="password" name="password2" />
+    <p></p>
+    <input type="submit" />
+
+</form>
+
+{% endblock %}
+

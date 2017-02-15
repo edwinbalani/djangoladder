@@ -1,0 +1,80 @@
+{% extends "Ladder/template.html" %}
+
+{% block col1 %}
+<h3>Submit a Result</h3>
+
+{% if text %}
+
+<p>{{ text }}</p>
+
+{% endif %}
+
+{% if not players_name %}
+
+<form action="/result" method="POST">
+
+    {% csrf_token %}
+    <p>Please Enter Your Name:</p>
+    <input type="text" name="player_name"/>
+    <p>And your password:</p>
+    <input type="password" name="password" />
+    <p></p>
+    <input type="submit" />
+
+</form>
+
+{% else %}
+
+<p>You are currently in a challenge with {{ other }}</p>
+
+<p>If you have finished playing the match, please enter the score:</p>
+<form action="/postresult" method="post">
+    <input type="hidden" value="{{ poster }}" name="poster" />
+    <input type="hidden" value="{{ other }}" name="other" />
+
+    {% csrf_token %}
+    <p>
+        {{ poster }}
+        <select name="posterscore">
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+        -
+        <select name="otherscore">
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+        {{ other }}
+    </p>
+    <input type="submit" />
+
+</form>
+
+
+{% endif %}
+{% endblock %}
+
+{% block col2 %}
+{% if ladder %}
+<h3>Current Ladder</h3>
+<ol>
+
+{% for player in ladder %}
+<li>{{ player.player_name }}</li>
+{% endfor %}
+
+</ol>
+
+{% else %}
+<p>No ladder is available.</p>
+{% endif %}
+{% endblock %}
+

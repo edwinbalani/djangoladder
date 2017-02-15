@@ -1,0 +1,41 @@
+{% extends "Ladder/template.html" %}
+{% block col1 %}
+ {{ text }}
+{% if ladder %}
+<h3>Current Ladder</h3>
+<ol>
+
+{% for player in ladder %}
+<li>{{ player.player_name }}</li>
+{% endfor %}
+
+</ol>
+
+{% else %}
+<p>No ladder is available.</p>
+{% endif %}
+{% endblock %}
+
+{% block col2 %}
+{% if challenges %}
+<h3>Recent Challenges</h3>
+<ul>
+
+{% for challenge in challenges %}
+<li>{{ challenge }}</li>
+{% endfor %}
+
+</ul>
+{% endif %}
+
+{% if games %}
+<h3>Recent Games</h3>
+<ul>
+
+{% for game in games %}
+<li>{{ game }}</li>
+{% endfor %}
+
+</ul>
+{% endif %}
+{% endblock %}

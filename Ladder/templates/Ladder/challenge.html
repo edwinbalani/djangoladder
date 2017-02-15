@@ -1,0 +1,61 @@
+{% extends "Ladder/template.html" %}
+
+{% block col1 %}
+<h3>Submit a Challenge</h3>
+
+{% if not players_name %}
+
+<form action="/createchallenge" method="POST">
+
+{% csrf_token %}
+    <p>Please Enter Your Name:</p>
+    <input type="text" name="player_name"/>
+    <p>And your password:</p>
+    <input type="password" name="password" />
+    <p></p>
+    <input type="submit" />
+
+</form>
+
+<p> {{ text }} </p>
+
+{% else %}
+
+{% if challenge %}
+<p>Here are your possible challenges:</p>
+
+<form method="post" action="/challengeparser"> {% csrf_token %}
+<input type="hidden" name="player_name" value="{{ players_name }}">
+
+{% for player in challenge %}
+
+<input type="radio" name="player_challenged" value="{{ player.player_name }}" /> {{ player.player_name }}<br />
+
+{% endfor %} <br />
+<input type="submit" />
+</form>
+
+
+{% else %}
+<p>Sorry, no challenges are available.</p>
+{% endif %}
+
+{% endif %}
+{% endblock %}
+
+{% block col2 %}
+{% if ladder %}
+<h3>Current Ladder</h3>
+<ol>
+
+{% for player in ladder %}
+<li>{{ player.player_name }}</li>
+{% endfor %}
+
+</ol>
+
+{% else %}
+<p>No ladder is available.</p>
+{% endif %}
+{% endblock %}
+
