@@ -15,6 +15,7 @@ The ladder is viewable at http://ladder.bencurnow.me.uk
 * Improved handling of results
 * Allows a force auto-resign if 4 days have passed since the challenge
 * Improved handling of the challengelist
+* Commenting of views.py for improved readability
 
 ##### Version 1.0.1
 * Sign up with a password
