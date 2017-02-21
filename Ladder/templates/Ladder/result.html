@@ -31,6 +31,7 @@
 <form action="/postresult" method="post">
     <input type="hidden" value="{{ poster }}" name="poster" />
     <input type="hidden" value="{{ other }}" name="other" />
+    <input type="hidden" value="noresign" name="autoresign" />
 
     {% csrf_token %}
     <p>
@@ -55,6 +56,32 @@
         {{ other }}
     </p>
     <input type="submit" />
+
+</form>
+<br />
+
+{% endif %}
+{% if autoresign %}
+
+<form action="/postresult" method="post">
+    <input type="hidden" value="{{ poster }}" name="poster" />
+    <input type="hidden" value="{{ other }}" name="other" />
+    <input type="hidden" value="autoresign" name="autoresign" />
+    <input type="hidden" value="0" name="posterscore" />
+    <input type="hidden" value="0" name="otherscore" />
+
+    {% csrf_token %}
+
+    <p>
+        The challenge has been active for longer than 96 hours. If you would like to force an auto resign, please
+        press the button below.
+    </p>
+    <p>
+        <input type="submit" value="Force Auto-Resign">
+
+    </p>
+
+
 
 </form>
 
