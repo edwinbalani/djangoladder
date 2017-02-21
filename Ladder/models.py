@@ -19,10 +19,15 @@ class Game(models.Model):
     game_loser = models.ForeignKey(Player, on_delete=models.CASCADE, related_name='Loser')
     game_loser_score = models.IntegerField(default=0)
     game_time = models.DateTimeField('Date Played')
+    game_resign = models.BooleanField(default=False)
 
     def __str__(self):
-        return str(self.game_winner) + ' beat ' + str(self.game_loser) \
-               + ' ' + str(self.game_winner_score) + '-' + str(self.game_loser_score)
+        if self.game_resign:
+            return str(self.game_winner) + ' beat ' + str(self.game_loser) \
+                   + ' by Auto-Resign'
+        else:
+            return str(self.game_winner) + ' beat ' + str(self.game_loser) \
+                   + ' ' + str(self.game_winner_score) + '-' + str(self.game_loser_score)
 
 
 class Challenge(models.Model):
