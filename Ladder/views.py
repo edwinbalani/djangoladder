@@ -241,20 +241,27 @@ def createchallenge(request):
                     # Checks that the player's most recent matches don't feature the other player.
                     # If in the last matches played by each player, they did not play each other, then add i to the
                     # confirmed_challenges list.
-                    if Game.objects.filter(game_loser=player).order_by('-game_time')[0].game_winner != i or \
-                            Game.objects.filter(game_winner=i).order_by('-game_time')[0].game_loser != player:
+                    if len(Game.objects.filter(game_loser=player).order_by('-game_time')) == 0 or \
+                            len(Game.objects.filter(game_winner=i).order_by('-game_time')) == 0:
                         confirmed_challenges.append(i)
+                    elif len(Game.objects.filter(game_loser=player).order_by('-game_time')) >= 1 and \
+                            len(Game.objects.filter(game_winner=i).order_by('-game_time')) >= 1:
+                        if Game.objects.filter(game_loser=player).order_by('-game_time')[0].game_winner != i or \
+                                Game.objects.filter(game_winner=i).order_by('-game_time')[0].game_loser != player:
+                            confirmed_challenges.append(i)
 
-                    # Else, check for a rematch. If in the player's last match, the player lost, and i won with
-                    # the correct score, and the player's did not play each other in the match before, then
-                    # add i to the confirmed_challenges list.
-                    elif Game.objects.filter(game_loser=player).order_by('-game_time')[0].game_winner == i:
-                        if Game.objects.filter(game_loser=player).order_by('-game_time')[1].game_winner != i or \
-                                Game.objects.filter(game_winner=i).order_by('-game_time')[1].game_loser != player:
+                        # Else, check for a rematch. If in the player's last match, the player lost, and i won with
+                        # the correct score, and the player's did not play each other in the match before, then
+                        # add i to the confirmed_challenges list.
+                        elif Game.objects.filter(game_loser=player).order_by('-game_time')[0].game_winner == i:
+                            if len(Game.objects.filter(game_loser=player).order_by('-game_time')) >= 2 \
+                                    and len(Game.objects.filter(game_winner=i).order_by('-game_time')) >= 2:
+                                if Game.objects.filter(game_loser=player).order_by('-game_time')[1].game_winner != i or \
+                                        Game.objects.filter(game_winner=i).order_by('-game_time')[1].game_loser != player:
 
-                            last_game = Game.objects.filter(game_loser=player).order_by('-game_time')[0]
-                            if last_game.game_winner_score - last_game.game_loser_score == 1:
-                                confirmed_challenges.append(i)
+                                    last_game = Game.objects.filter(game_loser=player).order_by('-game_time')[0]
+                                    if last_game.game_winner_score - last_game.game_loser_score == 1:
+                                        confirmed_challenges.append(i)
 
             # Return the /challenge page if everything has worked correctly.
             return render(request, 'Ladder/challenge.html', {'players_name': players_name, 'rank': a + b,
