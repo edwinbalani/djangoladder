@@ -49,10 +49,10 @@ def result(request):
                     challengetime = Challenge.objects.get(challenger=player).challenge_time
 
                     # Checks whether the challenge is greater than 96 hours old to force an auto-resign
-                    if (challengetime - timezone.now()).days >= 4:
+                    if abs((challengetime - timezone.now()).days) >= 4:
                         autoresign = 'true'
                     else:
-                        autoresign = 'false'
+                        autoresign = ''
 
                     return render(request, 'Ladder/result.html', {'players_name': players_name,
                                                                   'poster': poster, 'other': other,
@@ -66,10 +66,10 @@ def result(request):
                     challengetime = Challenge.objects.get(challenged=player).challenge_time
 
                     # Checks whether the challenge is greater than 96 hours old to force an auto-resign
-                    if (challengetime - timezone.now()).days >= 4:
+                    if abs((challengetime - timezone.now()).days) >= 4:
                         autoresign = 'true'
                     else:
-                        autoresign = 'false'
+                        autoresign = ''
 
                     return render(request, 'Ladder/result.html', {'players_name': players_name,
                                                                   'poster': poster, 'other': other,
