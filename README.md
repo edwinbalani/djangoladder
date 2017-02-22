@@ -11,6 +11,9 @@ This project is an extension of a previous project https://github.com/bencurnow/
 The ladder is viewable at http://ladder.bencurnow.me.uk
 
 ### Version History:
+##### Version 1.0.3
+* Bug fixing
+
 ##### Version 1.0.2
 * Improved handling of results
 * Allows a force auto-resign if 4 days have passed since the challenge
