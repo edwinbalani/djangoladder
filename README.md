@@ -10,6 +10,8 @@ This project is an extension of a previous project https://github.com/bencurnow/
 ~~The ladder will be available to see online soon.~~
 The ladder is viewable at http://ladder.bencurnow.me.uk
 
+---
+
 ### Version History:
 ##### Version 1.0.3
 * Bug fixing
@@ -28,6 +30,8 @@ The ladder is viewable at http://ladder.bencurnow.me.uk
 * Creation of the ladder
 * Ability to challenge and submit results
 * Administrator login
+
+---
 
 ### License
 
