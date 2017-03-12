@@ -1,5 +1,5 @@
-# djangoladder
-A ladder/leaderboard app in Django
+# ladder.py
+A ladder/ leaderboard application in Django
 
 ---
 
